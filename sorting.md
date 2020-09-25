@@ -364,7 +364,7 @@ Using the property of partition I mentioned above, we could solve this problem u
 
 In this section, I would use the python heapq library to implement the heapsort. Heapsort takes O(nlogn) time, and O(n) space since we create a heap (represented by an arrary) to store all the elements
 
-This is the implementation from the heapq documentation: https://docs.python.org/2/library/heapq.html , I made a small revision so that it corresponds to the format in our doc.
+This is the implementation from the heapq documentation: https://docs.python.org/2/library/heapq.html , I made a small revision so that it corresponds to the format in this chapter.
 
 ```python
 from heapq import heappop, heappush, heapify
@@ -464,7 +464,7 @@ def radixSort(array):
 
  Problem: since radix sort is essentially a counting sort for each digit, this approach can only apply to integers >= 0 or <= 0.
 
-Numbers with mixed signs are not studied in this doc
+Numbers with mixed signs are not studied in this chapter
 
 ## Summary
 
