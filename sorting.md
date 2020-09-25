@@ -348,14 +348,14 @@ def findKthLargest(self, nums: List[int], k: int) -> int:
         left, right = 0, len(nums) - 1
         n = len(nums)
 
-        while True:
-          idx = partition(nums, left, right)
-          if idx == n - k:
-            return nums[idx]
-          if idx > n - k:
-            right = idx - 1
-          else:
-            left = idx + 1
+    while True:
+      idx = partition(nums, left, right)
+      if idx == n - k:
+        return nums[idx]
+      if idx > n - k:
+        right = idx - 1
+      else:
+        left = idx + 1
 ```
 
 Using the property of partition I mentioned above, we could solve this problem using O(n) time like this.
