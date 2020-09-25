@@ -330,6 +330,8 @@ One key thing to notice is that after partitioning the arrary, pivot is sitting 
 
 _Example for partition_:  Kth Largest Element in an Array (medium): https://leetcode.com/problems/kth-largest-element-in-an-array/
 
+- Find the **k**th largest element in an unsorted array. Note that it is the kth largest element in the sorted order, not the kth distinct element.
+
 ```python
 def findKthLargest(self, nums: List[int], k: int) -> int:
     def partition(nums, lo, hi):
@@ -362,7 +364,7 @@ Using the property of partition I mentioned above, we could solve this problem u
 
 In this section, I would use the python heapq library to implement the heapsort. Heapsort takes O(nlogn) time, and O(n) space since we create a heap (represented by an arrary) to store all the elements
 
-This is the implementation from the heapq documentation: https://docs.python.org/2/library/heapq.html
+This is the implementation from the heapq documentation: https://docs.python.org/2/library/heapq.html , I made a small revision so that it corresponds to the format in our doc.
 
 ```python
 from heapq import heappop, heappush, heapify
@@ -461,7 +463,9 @@ def radixSort(array):
         place *= 10
 ```
 
+ Problem: since radix sort is essentially a counting sort for each digit, this approach can only apply to integers >= 0 or <= 0.
 
+Numbers with mixed signs are not studied in this doc
 
 ## Summary
 
@@ -473,17 +477,17 @@ Problem: sort an array: https://leetcode.com/problems/sort-an-array/
 
 
 
-| Algorithms           | Time                            | Space   |
-| -------------------- | :------------------------------ | ------- |
-| Insertion sort       | Time limit exceeded             | \       |
-| Bubble sort          | Time limit exceeded             | \       |
-| Bottom-up merge sort | Time limit exceeded             | \       |
-| Top-down merge sort  | 340 ms                          | 19.8 MB |
-| Quicksort            | 308 ms                          | 19.6 MB |
-| Counting sort        | 156 ms                          | 22.3 MB |
-| Heapsort             | 152 ms                          | 20.3 MB |
-| Python Built-in sort | 144 ms                          | 19.7 MB |
-| Radix sort           | Not be able to handle negatives | \       |
-|                      |                                 |         |
+| Algorithms           | Time                                      | Space             |
+| -------------------- | :---------------------------------------- | ----------------- |
+| Insertion sort       | Time limit exceeded: O(n^2)               | \: O(1)           |
+| Bubble sort          | Time limit exceeded: O(n^2)               | \: O(1)           |
+| Bottom-up merge sort | Time limit exceeded: O(nlogn)             | \: O(1)           |
+| Top-down merge sort  | 340 ms: O(nlogn)                          | 19.8 MB: O(n)     |
+| Quicksort            | 308 ms: O(nlogn)                          | 19.6 MB: O(logn)  |
+| Counting sort        | 156 ms: O(n + k)                          | 22.3 MB: O(n + k) |
+| Heapsort             | 152 ms: O(nlogn)                          | 20.3 MB: O(n)     |
+| Python Built-in sort | 144 ms: O(nlogn)                          | 19.7 MB: \        |
+| Radix sort           | Not be able to handle negatives: O(n + k) | \                 |
+|                      |                                           |                   |
 
 Bottom-up merge sort requires O(n) space so it causes huge overhead.
