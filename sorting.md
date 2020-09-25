@@ -180,7 +180,7 @@ In this example, sz denotes the size of the half window of the elements to be me
 
 Bottom-up approach requires O(n) space if we use the auxilary data structure, but it could be an inplace O(1) algorithm in the following linked list example.
 
-Example: Sort List (medium)
+_Example:  Sort List (medium)_
 Given the head of a linked list, return the list after sorting it in ascending order.
 
 ```python
@@ -286,7 +286,7 @@ def sortList(head):
 
 Since we are using a linked list, it is worth noticing that we just use constant space, which could suffice the O(1) space requirement of this question.
 
-## 4. Quicksort
+## 4. Quicksort (sometimes)
 
 Quicksort is a sorting algorithm that is, namely, really fast. It is of O(nlogn) time but it is usually faster than mergesort. The implementation of quicksort requires a _partition_ function.
 
@@ -326,7 +326,39 @@ In the end, after traversing the entire array except for the pivot, we know the 
 
 One key thing to notice is that after partitioning the arrary, pivot is sitting in the place that it should be sitting, as the definition of partition means every element that is less than pivot is placed at left, and every element that is larger than pivot is placed to the right. So, after ensuring the position of one element, we only need to quicksort the left and right part of this function.
 
-## 5. Heapsort
+
+
+_Example for partition_:  Kth Largest Element in an Array (medium): https://leetcode.com/problems/kth-largest-element-in-an-array/
+
+```python
+def findKthLargest(self, nums: List[int], k: int) -> int:
+    def partition(nums, lo, hi):
+      pivot = nums[hi]
+      i, j = lo - 1, lo
+      while j < hi:
+        if nums[j] < pivot:
+          i += 1
+          nums[i], nums[j] = nums[j], nums[i]
+          j += 1
+          nums[i + 1], nums[hi] = nums[hi], nums[i + 1]
+          return i + 1
+
+        left, right = 0, len(nums) - 1
+        n = len(nums)
+
+        while True:
+          idx = partition(nums, left, right)
+          if idx == n - k:
+            return nums[idx]
+          if idx > n - k:
+            right = idx - 1
+          else:
+            left = idx + 1
+```
+
+Using the property of partition I mentioned above, we could solve this problem using O(n) time like this.
+
+## 5. Heapsort (sometimes)
 
 In this section, I would use the python heapq library to implement the heapsort. Heapsort takes O(nlogn) time, and O(n) space since we create a heap (represented by an arrary) to store all the elements
 
@@ -358,7 +390,7 @@ For reference, heappop toke O(logn) time per element, heappush took O(logn) time
 
 Due to the property of comparison based sort, examples above can only reach the O(nlogn) time complexity at most. The following implementations would shed some lights on the O(n) sorting algorithms that actually exists. But, they usually require extra spaces, like a lot extra.
 
-## 6. Counting sort
+## 6. Counting sort (often)
 
 ```python
 def counting_sort(arr):
@@ -385,7 +417,7 @@ Space complexity: O(n + k) (p.s. We can also do an inplace counting sort, so it 
 
 One disadvantage of counting sort is that if the range of arr is too large, let's say 1 to n^2, this algorithm would take O(n^2) time, which is slower than the comparison based sort. In order to solve this problem, let's introduce radix sort.
 
-## 7. Radix sort
+## 7. Radix sort (never)
 
 From: https://www.programiz.com/dsa/radix-sort
 
