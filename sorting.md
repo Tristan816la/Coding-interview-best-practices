@@ -379,7 +379,6 @@ def heapsort(arr):
 def heapsort_2(arr):
   	heapify(arr)
   	arr[:] = [heappop(arr) for _ in range(len(arr))]
-
 ```
 
 
