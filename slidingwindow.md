@@ -197,3 +197,63 @@ Even though this is a hard problem on leetcode, it applies the same idea we had 
 
 Basically, we maintained a counter containing the count of each element of t. When we reach the point that a substring contains all the char in t, we increase the start by one until the substring is invalid again.
 
+
+
+Extra Example: Subarray Sum Equals K (medium): https://leetcode.com/problems/subarray-sum-equals-k/
+
+Given an array of integers and an integer **k**, you need to find the total number of continuous subarrays whose sum equals to **k**.
+
+```python
+def subarraySum(self, nums: List[int], k: int) -> int:
+    for i in range(1, len(nums)):
+        nums[i] += nums[i - 1]
+    
+    sumCounter = collections.Counter()
+    count = 0
+    
+    for num in nums:
+        if num - k in sumCounter:
+            count += sumCounter[num - k]
+        if num == k:
+            count += 1
+        sumCounter[num] += 1
+        
+    return count
+```
+Analysis:
+
+You might think to solve this problem using the sliding window approach. However, this problem ***cannot*** solve by sliding window (If you trick by this problem, star this repo plz). Why? Because if the sum is larger or smaller than k, it doesn't mean the window is too large or two small (But if we restrain this problem to sorted array or only positive number, we might use the sliding window approach)
+
+Remember, when using the sliding window approach, you need to notice:
+
+1. `If a wider scope of the sliding window is valid, the narrower scope of that wider scope is valid` must hold.
+2. `If a narrower scope of the sliding window is invalid, the wider scope of that narrower scope is invalid` must hold.
+
+(From: https://leetcode.com/problems/subarray-sum-equals-k/discuss/301242/General-summary-of-what-kind-of-problem-can-cannot-solved-by-Two-Pointers)
+
+
+
+Let's go over the solution. For the above problem, we used a concept called prefix-sum array, which could be explained by the example below:
+
+```
+arr = [0, 1, 3, 5, 7]
+prefix_sum = [0, 1, 4, 9, 16]
+```
+
+prefix_sum[0] = arr[0], prefix_sum[1] = arr[0] + arr[1], prefix_sum[2] = arr[0] + arr[1] + arr[2], and so on so forth.
+
+
+
+If we know the prefix sum, what do we know about the subarray? Well, if we pick i = 1 and j = 3, we know sum(arr[i : j]) == prefix_sum[j] - prefix_sum[i - 1]. In the above arr, sum from arr[i] to arr[j] is 1 + 3 + 5 = 9. Prefix_sum[j] - prefix_sum[i - 1] is indeed arr[1] + arr[2] + ... + arr[j] - arr[1] - arr[2] - ... arr[i - 1], which is exactly 1 + 3 + 5.
+
+
+
+How does this help our problem? Well, since we are trying to find how many subarrays sum to the target k, we can use this trick to get how many subarrays have the sum k. Normally, we need to use O(n^2) time to pick satisfying prefix_ sum[m]  and prefix_sum[n], however, does this remind you a familiar problem that basically everyone has seen on leetcode?
+
+
+
+Yes. Two sum! 
+
+
+
+We revised the two sum solution a little bit by using a counter. Since this time we are trying to find how many elements prefix_sum[n] before prefix_sum[m] such that prefix_sum[m]  - prefix_sum[n] = k. We also need to notice that the prefix_sum[m] itself can be equal to k, which is why we add another if statement for tackling this case.

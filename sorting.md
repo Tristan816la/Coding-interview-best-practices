@@ -491,3 +491,17 @@ Problem: sort an array: https://leetcode.com/problems/sort-an-array/
 |                      |                                           |                   |
 
 Bottom-up merge sort requires O(n) space so it causes huge overhead.
+
+
+
+_Side-note:_
+
+Stable sort:  Insertion sort, Merge Sort, Bubble Sort
+
+Not stable sort: Heap Sort, Quick Sort
+
+
+
+The difference between stable sort and not stable sort is what I call "resortibility", see the detail here:
+
+https://stackoverflow.com/questions/1517793/what-is-stability-in-sorting-algorithms-and-why-is-it-important#:~:text=A%20sorting%20algorithm%20is%20said,Sort%2C%20Bubble%20Sort%2C%20etc.&text=You%20can't%20stack%20unstable%20sorts%20in%20the%20same%20fashion.
