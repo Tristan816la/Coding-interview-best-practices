@@ -348,14 +348,14 @@ def findKthLargest(self, nums: List[int], k: int) -> int:
         left, right = 0, len(nums) - 1
         n = len(nums)
 
-        while True:
-          idx = partition(nums, left, right)
-          if idx == n - k:
-            return nums[idx]
-          if idx > n - k:
-            right = idx - 1
-          else:
-            left = idx + 1
+    while True:
+      idx = partition(nums, left, right)
+      if idx == n - k:
+        return nums[idx]
+      if idx > n - k:
+        right = idx - 1
+      else:
+        left = idx + 1
 ```
 
 Using the property of partition I mentioned above, we could solve this problem using O(n) time like this.
@@ -364,7 +364,7 @@ Using the property of partition I mentioned above, we could solve this problem u
 
 In this section, I would use the python heapq library to implement the heapsort. Heapsort takes O(nlogn) time, and O(n) space since we create a heap (represented by an arrary) to store all the elements
 
-This is the implementation from the heapq documentation: https://docs.python.org/2/library/heapq.html , I made a small revision so that it corresponds to the format in our doc.
+This is the implementation from the heapq documentation: https://docs.python.org/2/library/heapq.html , I made a small revision so that it corresponds to the format in this chapter.
 
 ```python
 from heapq import heappop, heappush, heapify
@@ -379,7 +379,6 @@ def heapsort(arr):
 def heapsort_2(arr):
   	heapify(arr)
   	arr[:] = [heappop(arr) for _ in range(len(arr))]
-
 ```
 
 
@@ -465,7 +464,7 @@ def radixSort(array):
 
  Problem: since radix sort is essentially a counting sort for each digit, this approach can only apply to integers >= 0 or <= 0.
 
-Numbers with mixed signs are not studied in this doc
+Numbers with mixed signs are not studied in this chapter
 
 ## Summary
 
