@@ -8,7 +8,7 @@ Let's dive into the examples to see how strings are tested in coding interviews.
 
 
 
-**Example 1: Chemical Equation Balanced or not (medium) (Adapted from real interview):**
+**Example 1: Chemical Equation Balanced or not (medium hard) (Adapted from real interview):**
 
 - Given a string representing a chemical equation, identify whether two sides of equation is balanced or not.
 
@@ -93,7 +93,14 @@ https://docs.python.org/2/library/string.html#string-functions
 
 
 
-Example 2: Add Binary (Easy): https://leetcode.com/problems/add-binary/
+So by reading the solution of this problem, you should notice:
+
+1. Strings, just like a stack, are really easy to check and manipulate if you set clear condition
+2. Using data structure like hash map or counter would be really helpful for solving the string problem.
+
+
+
+**Example 2: Add Binary (Easy):** https://leetcode.com/problems/add-binary/
 
 - Given two binary strings, return their sum (also a binary string).
 
@@ -120,11 +127,11 @@ def addBinary(self, a: str, b: str) -> str:
 
 Analysis:
 
-First, notice python list() function could change a string to a character list which contains every element in the string. 
+First, notice python list() function could change a string to a character list which contains every char in the string. Then, we are essentially using a and b as a stack. So since character is either '0' or '1', our carry could only be '0', '1', and '2'. So, for instance, if a = 1101 and b = 1100. We are goding to have carry = 1, at first, result = 1 % 2 = 1.  Carry then reset to 0. For carry = 0, it is the same. If carry = 2, it means we need to carry one to the next digit. For instance in at a[1] and b[1], since they sum to two, we carry 1 to a[0] and b[0]. In the end, if there is carry left, it means that we need to add one more digit. In this example, the result should be 11001, which has one more digit to carry.
 
 
 
-Example 3: Reverse words in a string (medium): https://leetcode.com/problems/reverse-words-in-a-string/
+**Example 3: Reverse words in a string (medium): **https://leetcode.com/problems/reverse-words-in-a-string/
 
 - Given an input string, reverse the string word by word.
 - Your reversed string should not contain leading or trailing spaces.
@@ -153,9 +160,115 @@ Analysis:
 
 For this example, we use a similar approach that we've used in the balancer question. We keep track of a st variable, and when we hit a space, we'll check if st is "". If not, which means we have stored a string, then we gonna add it to the words list. And if the char is not a space, we gonna add it to st. Then after having the words list, we can reverse it and join every element with a space.
 
-Also, for words
+
+
+**Example 4: Add Strings (Easy)**: https://leetcode.com/problems/add-strings/
+
+ Given two non-negative integers `num1` and `num2` represented as string, return the sum of `num1` and `num2`.
+
+1. The length of both `num1` and `num2` is < 5100.
+2. Both `num1` and `num2` contains only digits `0-9`.
+3. Both `num1` and `num2` does not contain any leading zero.
+4. You **must not use any built-in BigInteger library** or **convert the inputs to integer** directly.
+
+```python
+def addStrings(self, num1: str, num2: str) -> str:
+  carry = 0
+  result = ""
+  num1, num2 = list(num1), list(num2)
+  zero = ord('0')
+
+  while num1 or num2 or carry:
+    if num1:
+      carry += (ord(num1.pop()) - zero)
+    if num2:
+      carry += (ord(num2.pop()) - zero)
+    if carry >= 10:
+      result += chr(zero + carry - 10)
+      carry = 1
+    else:
+      result += chr(zero + carry)
+      carry = 0
+
+  return result[::-1]
+```
+
+Analysis:
+
+Since this example is really similar to example 2, I wouldn't spend too much time explaining this solution. The reason why I pick this problem is the usage of chr() and ord() in python. ord() returns the order to the character in the Ascii, and chr() returns the character by giving the order.
+
+
 
 ## Trie
+
+The section before wrapping up common patterns of the string problem. However, there is one data structure relavant to string that is great to learn -- Trie. Trie, also known as prefix tree, is a data structure commonly used to utilize the properties of prefix for a list of strings. Let's see its implementation and one application of this data structure.
+
+
+
+**Example 1:  Implement Trie (Prefix Tree):** https://leetcode.com/problems/implement-trie-prefix-tree/
+
+- Implement a trie with `insert`, `search`, and `startsWith` methods.
+
+```python
+class TrieNode:
+    def __init__(self):
+        self.isWord = False
+        self.children = collections.defaultdict(TrieNode)
+        
+class Trie(object):
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.root = TrieNode()
+        
+    def insert(self, word):
+        """
+        Inserts a word into the trie.
+        :type word: str
+        :rtype: None
+        """
+        curr_node = self.root
+        for c in word:
+            curr_node = curr_node.children[c]
+        curr_node.isWord = True
+
+    def search(self, word):
+        """
+        Returns if the word is in the trie.
+        :type word: str
+        :rtype: bool
+        """
+        curr_node = self.root
+        for c in word:
+            if c not in curr_node.children:
+                return False
+            curr_node = curr_node.children[c]
+        return curr_node.isWord       
+
+    def startsWith(self, prefix):
+        """
+        Returns if there is any word in the trie that starts with the given prefix.
+        :type prefix: str
+        :rtype: bool
+        """
+        curr_node = self.root
+        for c in prefix:
+            if c not in curr_node.children:
+                return False
+            curr_node = curr_node.children[c]
+        return True
+
+```
+
+Analysis:
+
+Above is the implementation of trie. Notice that since we are using collections.defaultdict(TrieNode) for children, if there is no trienode in the dict, it would automatically create one Node for us and map the Node with coressponding key.
+
+
+
+
 
 
 
