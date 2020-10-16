@@ -88,3 +88,39 @@ This also uses the Kadane's algorithm. Basically, we just store the previous sum
 
 The second approach is similar to Example one. However, since in this case we are asked to get a subarray with at least size 1, current_sum is set to max(x, current_sum + x) instead of max(0, current_sum + x).
 
+
+
+**Example 2: Unique Binary Search Trees**: https://leetcode.com/problems/unique-binary-search-trees/
+
+**Example 3: Minimum Path Sum (medium):** https://leetcode.com/problems/minimum-path-sum/
+
+Given a *m* x *n* grid filled with non-negative numbers, find a path from top left to bottom right which *minimizes* the sum of all numbers along its path.
+
+**Note:** You can only move either down or right at any point in time.
+
+```python
+def minPathSum(self, grid: List[List[int]]) -> int:
+    m = len(grid)
+    n = len(grid[0])
+    for i in range(1, n):
+        grid[0][i] += grid[0][i-1]
+    for i in range(1, m):
+        grid[i][0] += grid[i-1][0]
+    for i in range(1, m):
+        for j in range(1, n):
+            grid[i][j] += min(grid[i-1][j], grid[i][j-1])
+    return grid[-1][-1]
+```
+
+Example
+
+### 0 / 1 Knapsack Problem
+
+
+
+**Example 2: Coin Change (medium):**  https://leetcode.com/problems/coin-change/
+
+You are given coins of different denominations and a total amount of money *amount*. Write a function to compute the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return `-1`.
+
+You may assume that you have an infinite number of each kind of coin.
+
