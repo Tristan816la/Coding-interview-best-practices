@@ -46,7 +46,7 @@ def findMaxSubarray(arr, k):
 
 2. Smallest Subarray With Given Sum (medium)
 
-- Given an arrary and a target, find the size of the smallest subarray that sums to the target
+- Given an arrry and a target, find the size of the smallest subarray that sums to the target
 
 ```python
 def smallestSubarr(arr, target):

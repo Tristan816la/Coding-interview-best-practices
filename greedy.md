@@ -54,7 +54,7 @@ For example, if our time is 0 - 10, and the latest starting time is 8, we gurant
 
 For a more formal proof, please check this video: https://www.youtube.com/watch?v=hVhOeaONg1Y&ab_channel=BackToBackSWE
 
-![Screen Shot 2020-09-25 at 12.22.12 AM](/Users/tristanque/Library/Application Support/typora-user-images/Screen Shot 2020-09-25 at 12.22.12 AM.png)
+<img src="./images/Screen Shot 2020-09-25 at 12.22.12 AM.png" width="700">
 
 
 
@@ -149,6 +149,8 @@ Return *the least number of units of times that the CPU will take to finish all 
 
 
 Greedy is hard to grasp since it needs the interviewee to come up with a solution with great intuition. However, the underlying rule of each greedy algorithm is that there is one invariant, and such invariant could incrementally build up the real solution. It definitely took some time to practice.
+
+
 
 ### (Bonus) Dijkstra's Algorithm
 

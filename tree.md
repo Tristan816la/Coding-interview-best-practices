@@ -309,7 +309,7 @@ def diameterOfBinaryTree(root: TreeNode) -> int:
 
 The idea behind the recursion is that we need to identify that the longest path could suffice the condition below:
 
-Although the longest path doesn't have to go through the root node, it has to pass the root node of some subtree of the tree (because it has to be from one leaf node to another leaf node, otherwise we can extend it for free). The longest path that passes a given node as the ROOT node is T = left_height + right_height. So you just calculate T for all nodes and output the max T. (From: https://leetcode.com/problems/diameter-of-binary-tree/discuss/101132/Java-Solution-MaxDepth)
+Although the longest path doesn't have to go through the root node, it has to pass the root node of some subtree of the tree (because it has to be from one leaf node to another leaf node, otherwise we can extend it for free). The longest path that passes a given node using the ROOT node is T = left_height + right_height. So you just calculate T for all nodes and output the max T. (From: https://leetcode.com/problems/diameter-of-binary-tree/discuss/101132/Java-Solution-MaxDepth)
 
 
 
@@ -397,4 +397,17 @@ Given a **non-empty** binary tree, find the maximum path sum.
 
 For this problem, a path is defined as any sequence of nodes from some starting node to any node in the tree along the parent-child connections. The path must contain **at least one node** and does not need to go through the root.
 
-Example 4: 
+
+
+**Example 4: Longest Univalue Path in Binary Tree (Medium):** https://leetcode.com/problems/diameter-of-binary-tree/
+
+**Problem:** Given the `root` of a binary tree, return *the length of the longest path, where each node in the path has the same value*. This path may or may not pass through the root.
+
+**The length of the path** between two nodes is represented by the number of edges between them.
+
+**Analysis:**
+
+
+
+
+

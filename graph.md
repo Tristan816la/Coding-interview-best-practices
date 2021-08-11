@@ -34,17 +34,17 @@ def cloneGraph(self, node: 'Node') -> 'Node':
   	if nbr.val not in visited:
   		queue.append(nbr)
   		visited[nbr.val] = Node(nbr.val, [])
-  visited[cur.val].neighbors.append(visited[nbr.val])
+  	visited[cur.val].neighbors.append(visited[nbr.val])
 
   return visited[node.val]
 ```
 **Analysis:**
 
+In this solution, we create a copy of the graph using BFS. Since the values are unique for each node, we could use the nodes' values as keys. Then, we pretty much just traverse the graph and update the neighboring relationship for the copy
 
 
 
-
-**Example 2: Find Redundant Connection (medium)**
+**Example 2: Find Redundant Connection (medium)**: 
 
 In this problem, a tree is an **undirected** graph that is connected and has no cycles.
 
@@ -78,19 +78,36 @@ def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
 
     adjList = [set() for _ in range(maxv + 1)]
     res = None
+    
     for edge in edges:
       	s, t = edge
-    if dfs(s, t, set()):
-        res = edge
-        adjList[s].add(t)
-        adjList[t].add(s)
+        if dfs(s, t, set()):
+            res = edge
+            adjList[s].add(t)
+            adjList[t].add(s)
 
    	return res
 ```
 
+**Analysis:**
+
+
+
 
 
 **Example 3: Course Schedule IV (medium)**: https://leetcode.com/problems/course-schedule-iv/
+
+There are a total of `n` courses you have to take, labeled from `0` to `n-1`.
+
+Some courses may have direct prerequisites, for example, to take course 0 you have first to take course 1, which is expressed as a pair: `[1,0]`
+
+Given the total number of courses `n`, a list of direct `prerequisite` **pairs** and a list of `queries` **pairs**.
+
+You should answer for each `queries[i]` whether the course `queries[i][0]` is a prerequisite of the course `queries[i][1]` or not.
+
+Return *a list of boolean*, the answers to the given `queries`.
+
+Please note that if course **a** is a prerequisite of course **b** and course **b** is a prerequisite of course **c**, then, course **a** is a prerequisite of course **c**.
 
 ```python
 def checkIfPrerequisite(self, n: int, prerequisites: List[List[int]], queries: List[List[int]]) -> List[bool]:
@@ -98,7 +115,7 @@ def checkIfPrerequisite(self, n: int, prerequisites: List[List[int]], queries: L
     for p in prerequisites:
         pre, c = p
         courses[c].add(pre)
-        
+
     def dfs(s, t, visited):
         if s == t:
             return True
@@ -109,17 +126,16 @@ def checkIfPrerequisite(self, n: int, prerequisites: List[List[int]], queries: L
             if dfs(nbr, t, visited):
                 return True
         return False
-        
+
     res = []
     for q in queries:
         f, s = q
-        if dfs(s, f, set()):
-            res.append(True)
-        else:
-            res.append(False)
+        res.append(dfs(s, f, set()))
     return res
 ```
+ **Analysis:**
 
-
-​        
+- This is essentially a graph traversal using the dfs algorithm. For each of the course, we firstly up date the given prerequisite information, then we will verify whether a given course A has a course B as prereq
+- For our dfs function, if s == t, it means that the start is equal to the end, and we find our requisite, else if the s is in visited, it means that we have visited this point and this route is not applicable
+- For any of the neighbor of a given point s, if the neighbor is reachable to t, s is reachable to t, so we return true in this case, else we return false
 
